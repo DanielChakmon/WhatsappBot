@@ -225,7 +225,7 @@ public class MainPanel extends JPanel {
 
                 }
                 if (validNumber.get()) {
-                    AtomicReference<List<WebElement>> messagesInTimeOfReading = null;
+                    AtomicReference<List<WebElement>> messagesInTimeOfReading =new AtomicReference<List<WebElement>>();
                     List<WebElement> effectivelyFinalMessagesDoubleChecksBefore = messagesDoubleChecksBefore;
                     AtomicBoolean threadClosed = new AtomicBoolean(false);
                     new Thread(() -> {
@@ -271,7 +271,7 @@ public class MainPanel extends JPanel {
                     }).start();
                     this.add(responseLabel);
                     int messagesInTimeOfReadingCount = 0;
-                    if (messagesInTimeOfReading != null) {
+                    if (messagesInTimeOfReading.get() != null) {
                         messagesInTimeOfReadingCount = messagesInTimeOfReading.get().size();
                         System.out.println("found incoming messages");
                     }
@@ -342,14 +342,14 @@ public class MainPanel extends JPanel {
     public List<WebElement> getMessages(ChromeDriver driver) {
         List<WebElement> messages = null;
         try {
-            messages.addAll(driver.findElements(By.cssSelector("div[ class='_2wUmf _21bY5 message-in focusable-list-item']")));
+            messages.addAll(driver.findElements(By.cssSelector("div._2wUmf._21bY5.message-in.focusable-list-item")));
         } catch (NoSuchElementException exception) {
 
         } catch (NullPointerException exception2) {
 
         }
         try {
-            messages.addAll(driver.findElements(By.cssSelector("div[class='_2wUmf.message-in.focusable-list-item']")));
+            messages.addAll(driver.findElements(By.cssSelector("div.message-in.focusable-list-item")));
         } catch (NoSuchElementException exception) {
 
         } catch (NullPointerException exception2) {
